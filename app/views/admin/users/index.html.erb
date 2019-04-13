@@ -1,0 +1,46 @@
+<% provide(:title, 'All users') %>
+<% if current_user.admin? %>
+<h1>All users</h1>
+<%= link_to 'New user', new_admin_user_path %>
+<%= paginate @users %>
+<%= page_entries_info @users, entry_name: 'item' %>
+<ul class="users">
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <!-- <th scope="col">Gravatar</th> -->
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <!-- <th scope="col">Pasword</th> -->
+      <th scope="col">Role</th>
+      <th></th>
+      <th></th>
+      <!-- <th></th> -->
+    </tr>
+  </thead>
+  <% @users.order(:id).each do |user| %>
+    <tr>
+      <td><%= user.id %></td>
+      <!-- <td><%= gravatar_for user, size: 80 %></td> -->
+      <td><%= link_to user.name, user %></td>
+      <td><%= user.email %></td>
+      <!-- <td><%= user.password_digest %></td> -->
+      <td><%= user.role %></td>
+      <td><%= link_to 'Edit', edit_admin_user_path(user) %></td>
+      <td>
+      <% if current_user.id != user.id %>
+      <%= link_to 'Delete', admin_user_path(user),
+              remote: true,
+              method: :delete,
+              data: { confirm: 'You sure?' },
+              class: "user-#{user.id}" %>
+      <% end %>
+      </td>
+    </tr>
+  <% end %>
+ </table>
+</ul> 
+<% else %>
+<h1>PAGE NOT FOUND</h1>
+<% end %>

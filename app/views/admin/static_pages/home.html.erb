@@ -1,0 +1,10 @@
+<% provide(:title, 'Admin') %>
+<% if current_user.admin? %>
+<div class="center jumbotron">
+  <%= link_to "Product management", "#", class: "btn btn-lg btn-primary" %>
+  <%= link_to "Order management", "#", class: "btn btn-lg btn-primary" %>
+  <%= link_to "User management", admin_users_path, class: "btn btn-lg btn-primary" %>
+</div>
+<% else %>
+<h1>PAGE NOT FOUND</h1>
+<% end %>

@@ -1,0 +1,7 @@
+<% provide(:title, 'adidas Official Website') %>
+<div class="center jumbotron">
+
+  <%= link_to "Hello, #{current_user.name}!", current_user, class: "btn btn-lg btn-primary" %>
+  <%= link_to "Not #{current_user.name}? Log out", logout_path, method: :delete, class: "btn btn-lg btn-primary" %>
+  <%= link_to "Personal Information", edit_user_path(current_user), class: "btn btn-lg btn-primary" %>
+</div>
