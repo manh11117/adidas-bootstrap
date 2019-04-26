@@ -22,6 +22,9 @@
         <%= f.label :password_confirmation, "Confirmation" %>
         <%= f.password_field :password_confirmation, class: 'form-control' %>
 
+        <%= f.label :role %>
+        <%= f.select(:role, User.roles.keys.map { |w| [w.humanize, w] }, {include_blank: "Select"}, {class: "form-control"} ) %>
+
         <%= f.submit "Save changes", class: "btn btn-primary" %>
     <% end %>
 

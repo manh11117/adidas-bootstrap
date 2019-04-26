@@ -76,7 +76,7 @@ class Admin::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password,
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :role,
                                  :password_confirmation)
   end
 
@@ -85,7 +85,7 @@ class Admin::UsersController < ApplicationController
   # Confirms the correct user.
   def correct_user
     @user = User.find(params[:id])
-    redirect_to(root_url) unless current_user?(@user)
+    redirect_to(root_url) unless current_user.admin?
   end
 
   # Confirms an admin user.

@@ -6,8 +6,11 @@
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(@user) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
-        <%= f.label :name %>
-        <%= f.text_field :name, class: 'form-control' %>
+        <%= f.label :first_name %>
+        <%= f.text_field :first_name, class: 'form-control' %>
+
+        <%= f.label :last_name %>
+        <%= f.text_field :last_name, class: 'form-control' %>
 
         <%= f.label :email %>
         <%= f.email_field :email, class: 'form-control' %>
@@ -17,6 +20,9 @@
 
         <%= f.label :password_confirmation, "Confirmation" %>
         <%= f.password_field :password_confirmation, class: 'form-control' %>
+
+        <%= f.label :role %>
+        <%= f.select(:role, User.roles.keys.map { |w| [w.humanize, w] }, {include_blank: "Select"}, {class: "form-control"} ) %>
 
         <%= f.submit "Create my account", class: "btn btn-primary" %>
     <% end %>

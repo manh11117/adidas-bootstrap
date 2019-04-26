@@ -48,9 +48,15 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.find( params[:id] ).destroy
-    flash[:success] = 'User successfully deleted!'
-    redirect_to (users_url)
+    @user = User.find( params[:id] ).destroy
+
+    respond_to do |format|
+      format.html {
+        flash[:success] = 'User successfully deleted!'
+        redirect_to (admin_users_url)
+      }
+      format.js
+    end
   end
 
   def following
@@ -70,7 +76,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password,
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :role,
                                  :password_confirmation)
   end
 
@@ -79,7 +85,7 @@ class UsersController < ApplicationController
   # Confirms the correct user.
   def correct_user
     @user = User.find(params[:id])
-    redirect_to(root_url) unless current_user?(@user)
+    redirect_to(root_url) unless current_user.admin?
   end
 
   # Confirms an admin user.
